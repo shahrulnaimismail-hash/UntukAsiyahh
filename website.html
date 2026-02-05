@@ -1,0 +1,1138 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Untuk Asiyah</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+        
+        body {
+            background: linear-gradient(135deg, #f0f8ff, #e6f7ff, #f5f0ff);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+            overflow-x: hidden;
+            position: relative;
+        }
+        
+        body::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url('https://images.unsplash.com/photo-1565689221354-d87f85d4aee2?q=80&w=2070&auto=format&fit=crop');
+            background-size: cover;
+            background-position: center;
+            opacity: 0.05;
+            z-index: -1;
+        }
+        
+        .container {
+            width: 100%;
+            max-width: 450px;
+            background-color: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            position: relative;
+            border: 2px solid #8a6d3b;
+        }
+        
+        .screen {
+            padding: 30px 25px;
+            display: none;
+            flex-direction: column;
+            min-height: 600px;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: opacity 0.5s, transform 0.5s;
+        }
+        
+        .screen.active {
+            display: flex;
+            opacity: 1;
+            transform: translateY(0);
+        }
+        
+        .message {
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            gap: 20px;
+        }
+        
+        .message h2 {
+            color: #8a6d3b;
+            font-size: 24px;
+            margin-bottom: 10px;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .message p {
+            color: #555;
+            font-size: 18px;
+            line-height: 1.5;
+        }
+        
+        .btn-container {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+        
+        .btn {
+            padding: 12px 30px;
+            border: none;
+            border-radius: 50px;
+            font-size: 18px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .btn-primary {
+            background: linear-gradient(to right, #8a6d3b, #6b4c2a);
+            color: white;
+        }
+        
+        .btn-primary:hover {
+            background: linear-gradient(to right, #6b4c2a, #8a6d3b);
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.15);
+        }
+        
+        .btn-secondary {
+            background-color: #f8f9fa;
+            color: #555;
+            border: 1px solid #ddd;
+        }
+        
+        .btn-secondary:hover {
+            background-color: #e9ecef;
+        }
+        
+        .password-pad {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 15px;
+            margin: 30px auto;
+            max-width: 300px;
+        }
+        
+        .num-btn {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            border: 2px solid #8a6d3b;
+            background-color: white;
+            font-size: 28px;
+            font-weight: bold;
+            color: #8a6d3b;
+            cursor: pointer;
+            transition: all 0.2s ease;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+        }
+        
+        .num-btn:hover {
+            background-color: #f9f5e9;
+            transform: scale(1.05);
+            border-color: #6b4c2a;
+        }
+        
+        .num-btn.zero {
+            grid-column: 2;
+        }
+        
+        .num-btn.blank {
+            grid-column: 3;
+            background-color: #f5f5f5;
+            border: 2px dashed #ccc;
+            color: #aaa;
+        }
+        
+        .password-display {
+            font-size: 24px;
+            letter-spacing: 10px;
+            margin: 20px 0;
+            color: #8a6d3b;
+            height: 40px;
+            font-weight: bold;
+        }
+        
+        .password-hint {
+            font-size: 16px;
+            color: #888;
+            margin-top: 10px;
+            font-style: italic;
+        }
+        
+        .islamic-icon {
+            color: #8a6d3b;
+            font-size: 40px;
+            margin: 20px 0;
+            animation: float 3s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-10px); }
+            100% { transform: translateY(0px); }
+        }
+        
+        .mosque {
+            font-size: 30px;
+            margin: 0 5px;
+            animation: pulse 4s linear infinite;
+        }
+        
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+        
+        .birthday-title {
+            color: #8a6d3b;
+            font-size: 32px;
+            margin-bottom: 20px;
+            text-align: center;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .islamic-frame {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(to bottom, #e6d3b8, #d4b483, #b89446);
+            border-radius: 15px;
+            margin: 20px 0;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 60px;
+            position: relative;
+            overflow: hidden;
+            border: 3px solid #8a6d3b;
+        }
+        
+        .islamic-frame img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        .islamic-frame i {
+            z-index: 2;
+            position: relative;
+        }
+        
+        .islamic-frame .moon {
+            position: absolute;
+            top: 20px;
+            right: 30px;
+            color: #f8f5e6;
+            font-size: 40px;
+            z-index: 2;
+            animation: moon-glow 3s ease-in-out infinite;
+        }
+        
+        @keyframes moon-glow {
+            0% { transform: scale(1); opacity: 0.9; }
+            50% { transform: scale(1.1); opacity: 1; }
+            100% { transform: scale(1); opacity: 0.9; }
+        }
+        
+        .playlist {
+            width: 100%;
+            margin-top: 20px;
+        }
+        
+        .playlist-item {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px;
+            border-bottom: 1px solid #e9ecef;
+            cursor: pointer;
+            border-radius: 10px;
+            transition: all 0.3s;
+            background-color: #f8f9fa;
+            margin-bottom: 10px;
+        }
+        
+        .playlist-item:hover {
+            background-color: #f5f0e6;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .song-info {
+            flex-grow: 1;
+        }
+        
+        .song-title {
+            font-weight: 600;
+            color: #8a6d3b;
+        }
+        
+        .song-artist {
+            color: #888;
+            font-size: 14px;
+        }
+        
+        .song-duration {
+            color: #888;
+        }
+        
+        .next-btn {
+            align-self: flex-end;
+            margin-top: auto;
+        }
+        
+        .final-message {
+            text-align: center;
+            padding: 20px;
+        }
+        
+        .final-message h1 {
+            color: #8a6d3b;
+            font-size: 36px;
+            margin-bottom: 20px;
+            text-shadow: 1px 1px 3px rgba(0,0,0,0.1);
+        }
+        
+        .final-message p {
+            font-size: 18px;
+            line-height: 1.6;
+            color: #555;
+            margin-bottom: 15px;
+        }
+        
+        .back-btn {
+            background-color: #f8f9fa;
+            color: #555;
+            margin-top: 30px;
+            border: 1px solid #ddd;
+        }
+        
+        .back-btn:hover {
+            background-color: #e9ecef;
+        }
+        
+        .progress-indicator {
+            display: flex;
+            justify-content: center;
+            margin: 20px 0 10px;
+            gap: 8px;
+        }
+        
+        .progress-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background-color: #e6d3b8;
+            transition: all 0.3s;
+        }
+        
+        .progress-dot.active {
+            background-color: #8a6d3b;
+            transform: scale(1.2);
+        }
+        
+        .screen-number {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            color: #8a6d3b;
+            font-size: 14px;
+            font-weight: bold;
+            background-color: rgba(255, 255, 255, 0.8);
+            padding: 5px 10px;
+            border-radius: 15px;
+        }
+        
+        .arabic-pattern {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 60px;
+            background-image: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 1200 120" preserveAspectRatio="none"><path d="M0,0V46.29c47.79,22.2,103.59,32.17,158,28,70.36-5.37,136.33-33.31,206.8-37.5C438.64,32.43,512.34,53.67,583,72.05c69.27,18,138.3,24.88,209.4,13.08,36.15-6,69.85-17.84,104.45-29.34C989.49,25,1113-14.29,1200,52.47V0Z" opacity=".25" fill="%238a6d3b"/><path d="M0,0V15.81C13,36.92,27.64,56.86,47.69,72.05,99.41,111.27,165,111,224.58,91.58c31.15-10.15,60.09-26.07,89.67-39.8,40.92-19,84.73-46,130.83-49.67,36.26-2.85,70.9,9.42,98.6,31.56,31.77,25.39,62.32,62,103.63,73,40.44,10.79,81.35-6.69,119.13-24.28s75.16-39,116.92-43.05c59.73-5.85,113.28,22.88,168.9,38.84,30.2,8.66,59,6.17,87.09-7.5,22.43-10.89,48-26.93,60.65-49.24V0Z" opacity=".5" fill="%238a6d3b"/><path d="M0,0V5.63C149.93,59,314.09,71.32,475.83,42.57c43-7.64,84.23-20.12,127.61-26.46,59-8.63,112.48,12.24,165.56,35.4C827.93,77.22,886,95.24,951.2,90c86.53-7,172.46-45.71,248.8-84.81V0Z" fill="%238a6d3b"/></svg>');
+            background-size: 1200px 60px;
+            animation: wave 12s linear infinite;
+            z-index: -1;
+        }
+        
+        @keyframes wave {
+            0% { background-position-x: 0; }
+            100% { background-position-x: 1200px; }
+        }
+        
+        .islamic-greeting {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-size: 32px;
+            color: #8a6d3b;
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f0e6, #ffffff);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #d4b483;
+        }
+        
+        .name-highlight {
+            color: #6b4c2a;
+            font-weight: bold;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
+        }
+        
+        .islamic-image {
+            width: 100%;
+            height: 200px;
+            border-radius: 15px;
+            margin: 20px 0;
+            overflow: hidden;
+            border: 3px solid #8a6d3b;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            background: linear-gradient(to bottom, #e6d3b8, #d4b483, #b89446);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            color: white;
+            font-size: 24px;
+            position: relative;
+        }
+        
+        .islamic-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .congrats-message {
+            font-size: 28px;
+            color: #8a6d3b;
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f0e6, #ffffff);
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #d4b483;
+            line-height: 1.5;
+        }
+        
+        .mosque-icon {
+            position: absolute;
+            bottom: 0;
+            right: 20px;
+            font-size: 60px;
+            color: #8a6d3b;
+            z-index: -1;
+            opacity: 0.3;
+        }
+        
+        .mosque-icon.left {
+            left: 20px;
+            right: auto;
+            transform: scaleX(-1);
+        }
+        
+        .special-screen {
+            background: linear-gradient(135deg, #f5f0e6, #ffffff);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #d4b483;
+        }
+        
+        .long-message {
+            max-height: 300px;
+            overflow-y: auto;
+            padding: 15px;
+            background: linear-gradient(135deg, #f9f5e9, #ffffff);
+            border-radius: 10px;
+            border: 1px solid #d4b483;
+            text-align: left;
+            line-height: 1.8;
+        }
+        
+        .long-message p {
+            margin-bottom: 15px;
+            color: #444;
+        }
+        
+        .music-page {
+            width: 100%;
+            text-align: center;
+        }
+        
+        .music-player {
+            background: linear-gradient(135deg, #f5f0e6, #ffffff);
+            border-radius: 15px;
+            padding: 25px;
+            margin: 20px 0;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            border: 2px solid #d4b483;
+        }
+        
+        .album-art {
+            width: 200px;
+            height: 200px;
+            border-radius: 50%;
+            margin: 0 auto 25px;
+            overflow: hidden;
+            border: 4px solid #8a6d3b;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+            position: relative;
+            background: linear-gradient(135deg, #e6d3b8, #d4b483, #b89446);
+        }
+        
+        .album-art img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .song-title-large {
+            font-size: 28px;
+            color: #8a6d3b;
+            margin-bottom: 10px;
+            font-weight: bold;
+        }
+        
+        .song-artist-large {
+            font-size: 18px;
+            color: #666;
+            margin-bottom: 25px;
+        }
+        
+        .music-controls {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            margin-top: 25px;
+        }
+        
+        .music-btn {
+            width: 50px;
+            height: 50px;
+            border-radius: 50%;
+            background: #8a6d3b;
+            color: white;
+            border: none;
+            font-size: 20px;
+            cursor: pointer;
+            transition: all 0.3s;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+        }
+        
+        .music-btn:hover {
+            background: #6b4c2a;
+            transform: scale(1.1);
+        }
+        
+        .play-btn {
+            width: 60px;
+            height: 60px;
+            font-size: 24px;
+            background: linear-gradient(to right, #8a6d3b, #6b4c2a);
+        }
+        
+        .progress-bar {
+            width: 100%;
+            height: 6px;
+            background-color: #e0e0e0;
+            border-radius: 3px;
+            margin-top: 20px;
+            overflow: hidden;
+        }
+        
+        .progress {
+            width: 30%;
+            height: 100%;
+            background: linear-gradient(to right, #8a6d3b, #6b4c2a);
+            border-radius: 3px;
+            transition: width 0.3s;
+        }
+        
+        .time-display {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 10px;
+            color: #666;
+            font-size: 14px;
+        }
+        
+        .dedication {
+            font-style: italic;
+            color: #8a6d3b;
+            margin-top: 20px;
+            padding: 15px;
+            background: rgba(138, 109, 59, 0.1);
+            border-radius: 10px;
+            line-height: 1.6;
+        }
+        
+        .lyrics-preview {
+            margin-top: 25px;
+            text-align: left;
+            max-height: 150px;
+            overflow-y: auto;
+            padding: 15px;
+            background: #f9f5e9;
+            border-radius: 10px;
+            border: 1px solid #d4b483;
+        }
+        
+        .lyrics-preview h4 {
+            color: #8a6d3b;
+            margin-bottom: 10px;
+            text-align: center;
+        }
+        
+        .lyrics-preview p {
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 10px;
+        }
+        
+        .hijab-image {
+            position: absolute;
+            bottom: 40px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 80%;
+            height: 60px;
+            background: linear-gradient(to right, #e6d3b8, #d4b483);
+            border-radius: 5px;
+            z-index: 1;
+        }
+        
+        .hijab-image::before {
+            content: "";
+            position: absolute;
+            top: -20px;
+            left: 0;
+            width: 100%;
+            height: 20px;
+            background: linear-gradient(to right, #b89446, #8a6d3b);
+            border-radius: 10px 10px 0 0;
+        }
+        
+        .hijab-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 5px;
+        }
+        
+        .muslim-girl-img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 12px;
+        }
+        
+        .profile-image {
+            width: 150px;
+            height: 150px;
+            border-radius: 50%;
+            overflow: hidden;
+            border: 4px solid #8a6d3b;
+            margin: 20px auto;
+            box-shadow: 0 8px 20px rgba(0, 0, 0, 0.15);
+        }
+        
+        .profile-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+        
+        .arabic-calligraphy {
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
+            font-size: 36px;
+            color: #8a6d3b;
+            text-align: center;
+            margin: 20px 0;
+        }
+        
+        .quran-verse {
+            font-family: 'Traditional Arabic', 'Arial', sans-serif;
+            font-size: 22px;
+            color: #2c3e50;
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, #f5f0e6, #ffffff);
+            border-radius: 15px;
+            border-right: 5px solid #8a6d3b;
+            direction: rtl;
+        }
+        
+        .quran-translation {
+            font-size: 16px;
+            color: #666;
+            text-align: center;
+            margin-top: 10px;
+            font-style: italic;
+        }
+    </style>
+</head>
+<body>
+    <div class="arabic-pattern"></div>
+    <div class="mosque-icon">🕌</div>
+    <div class="mosque-icon left">🕌</div>
+    
+    <div class="container">
+        <!-- Screen 1: Password screen -->
+        <div class="screen active" id="screen1">
+            <div class="screen-number">1/9</div>
+            <div class="message">
+                <h2>WRITE YOUR BIRTHDAY,<br>I bet u know!!</h2>
+                <div class="islamic-icon">🕌</div>
+                <div class="password-pad">
+                    <div class="num-btn" data-number="1">1</div>
+                    <div class="num-btn" data-number="2">2</div>
+                    <div class="num-btn" data-number="3">3</div>
+                    <div class="num-btn" data-number="4">4</div>
+                    <div class="num-btn" data-number="5">5</div>
+                    <div class="num-btn" data-number="6">6</div>
+                    <div class="num-btn" data-number="7">7</div>
+                    <div class="num-btn" data-number="8">8</div>
+                    <div class="num-btn" data-number="9">9</div>
+                    <div class="num-btn zero" data-number="0">0</div>
+                    <div class="num-btn blank">⬜</div>
+                </div>
+                <div class="password-display" id="passwordDisplay">____</div>
+                <div class="password-hint">Hint: Youur special date (2107)</div>
+            </div>
+        </div>
+        
+        <!-- Screen 2: ASSALAMUALAIKUM ASIYAH (Now appears after password) -->
+        <div class="screen" id="screen2">
+            <div class="screen-number">2/9</div>
+            <div class="message">
+                <div class="islamic-greeting">
+                    <div>ASSALAMUALAIKUM</div>
+                    <div class="name-highlight">ASIYAH</div>
+                </div>
+                <!-- Example for Screen 2 -->
+<div class="profile-image">
+    <img src="C:\Users\pc\Desktop\Website\2.jpeg" alt="Asiyah" class="muslim-girl-img">
+</div>
+                <p>May your day be blessed with peace and happiness. 🌙🕊️</p>
+                <button class="btn btn-primary next-btn" data-next="3">Next</button>
+            </div>
+        </div>
+        
+        <!-- Screen 3: Are you ready? (Now appears after ASSALAMUALAIKUM ASIYAH) -->
+        <div class="screen" id="screen3">
+            <div class="screen-number">3/9</div>
+            <div class="message">
+                <h2>are you ready to open thisss?</h2>
+                <div class="islamic-icon">🌟</div>
+                <div class="btn-container">
+                    <button class="btn btn-primary" data-next="5">yess</button>
+                    <button class="btn btn-secondary" id="noBtn">noo</button>
+                </div>
+            </div>
+        </div>
+        
+        <!-- Screen 4: Special screen (only appears when pressing "no" at screen 3) -->
+        <div class="screen" id="screen4">
+            <div class="screen-number">4/9</div>
+            <div class="message">
+                <div class="special-screen">
+                    <h2>It's okay to take your time! </h2>
+                    <p>Whenever you're ready, just open okeyyy.</p>
+                    <div class="islamic-icon">🕰️</div>
+                </div>
+                <div class="islamic-image">
+                    <img src="C:\Users\pc\Desktop\Website\3.jpeg" alt="Muslim girl reading Quran" class="muslim-girl-img">
+                </div>
+                <button class="btn btn-primary next-btn" data-next="5">I'm ready now!</button>
+            </div>
+        </div>
+        
+        <!-- Screen 5: Birthday message -->
+        <div class="screen" id="screen5">
+            <div class="screen-number">5/9</div>
+            <div class="message">
+                <h2 class="birthday-title">HAVE FUN WITH YOUR LIFE AHEAD<br>HOPE YOU WILL ALWAYS HAPPY EVERY DAY</h2>
+                <div class="islamic-frame">
+                    <img src="C:\Users\pc\Desktop\Website\4.jpeg" alt="Muslim girl smiling in hijab" class="muslim-girl-img">
+                    <div class="moon">🌙</div>
+                </div>
+                <button class="btn btn-primary" data-next="6">open it &lt;3</button>
+            </div>
+        </div>
+        
+        <!-- Screen 6: Islamic wisdom message -->
+        <div class="screen" id="screen6">
+            <div class="screen-number">6/9</div>
+            <div class="message">
+                <h2>AQ ADA BEBERAPA PESANAN KHAS UNTUK KAU</h2>
+                <div class="quran-verse">
+                    وَمَن يَتَّقِ ٱللَّهَ يَجْعَل لَّهُۥ مَخْرَجًا
+                </div>
+                <div class="quran-translation">
+                    "And whoever fears Allah - He will make for him a way out." (Quran 65:2)
+                </div>
+                <div class="long-message">
+                    <p>Takdir bukan untuk dilawan dengan amarah, tetapi ditempuh dengan ikhtiar dan sabar.
+                    Allah menulis jalan hidupmu, namun Dia juga memberi kakimu kekuatan untuk melangkah.
+                    (Inspirasi: konsep Qada' & Qadar – Imam al-Ghazali)</p>
+                    <p>Jangan menyerah hanya kerana doamu belum dijawab.
+                    Kadang Allah menangguhkan jawapan kerana Dia sedang menyediakan versi dirimu yang lebih layak menerima.
+                    (Inspirasi: tafsir sabar & doa – Ibn Qayyim al-Jawziyyah)</p>
+                    <p>Bukan semua yang kau pinta itu baik untukmu,
+                    dan bukan semua yang menyakitkan itu buruk untukmu.
+                    Allah melihat keseluruhan hidupmu, sedangkan kau hanya melihat satu bab.
+                    (Inspirasi: tafsir hikmah ujian – Ibn Kathir)</p>
+                    <p>Luka yang kau simpan diam-diam itu,
+                    sedang Allah kira sebagai sabar yang paling mahal nilainya.
+                    (Inspirasi: ganjaran sabar)</p>
+                    <p>Jangan takut dengan hari esok,
+                    kerana Allah yang menjaga hari ini, juga memegang hari esokmu.
+                    (Inspirasi: keyakinan kepada Allah)</p>
+                    <p>Tidak mengapa jika hari ini kau lemah,
+                    kerana Allah tidak menilai kuat atau lemahnya dirimu,
+                    tetapi sejauh mana kau masih kembali kepada-Nya.
+                    (Inspirasi: rahmat Allah terhadap hamba)</p>
+                </div>
+                <div class="islamic-image">
+                    <img src="C:\Users\pc\Desktop\Website\8.jpeg" alt="Muslim woman praying" class="muslim-girl-img">
+                </div>
+                <button class="btn btn-primary next-btn" data-next="7">Next</button>
+            </div>
+        </div>
+        
+        <!-- Screen 7: Are you ready? (Islamic theme) -->
+        <div class="screen" id="screen7">
+            <div class="screen-number">7/9</div>
+            <div class="message">
+                <h2>Almost there! One more step to complete your journey</h2>
+                <div class="islamic-icon">🕋</div>
+                <div class="btn-container">
+                    <button class="btn btn-primary" data-next="8">Yes, I'm ready!</button>
+                    <button class="btn btn-secondary" data-next="6">Not yet</button>
+                </div>
+                <p class="password-hint">If you press "Yes", you'll see something special!</p>
+            </div>
+        </div>
+        
+        <!-- Screen 8: Congrats message -->
+        <div class="screen" id="screen8">
+            <div class="screen-number">8/9</div>
+            <div class="message">
+                <div class="congrats-message">
+                    CONGRATS FOR FINISHING<br>YOUR FIRST SEM!
+                </div>
+                <div class="islamic-frame">
+                    <img src="C:\Users\pc\Desktop\Website\6.jpeg" alt="Muslim graduate" class="muslim-girl-img">
+                    <div class="moon">🎓</div>
+                </div>
+                <p>You did an amazing job! So proud of you! 🌟</p>
+                <button class="btn btn-primary next-btn" data-next="9">See final message</button>
+            </div>
+        </div>
+        
+        <!-- Screen 9: Music Page - Islamic themed -->
+        <div class="screen" id="screen9">
+            <div class="screen-number">9/9</div>
+            <div class="music-page">
+                <h2 class="birthday-title">A Special Song For You </h2>
+                
+                <div class="music-player">
+                    <div class="album-art">
+                        <img src="C:\Users\pc\Desktop\Website\7.jpeg" alt="Muslim woman in prayer" class="muslim-girl-img">
+                    </div>
+                    
+                    <!-- YouTube Embed for Islamic Nasheed -->
+                    <div class="youtube-player" style="margin: 20px 0; border-radius: 10px; overflow: hidden;">
+                        <iframe 
+                            width="100%" 
+                            height="200" 
+                            src="https://www.youtube.com/embed/413xi0fC8hg?autoplay=0&controls=1" 
+                            title="YouTube video player" 
+                            frameborder="0" 
+                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                            allowfullscreen>
+                        </iframe>
+                    </div>
+                    
+                    <div class="song-title-large">KOTA INI TAK SAMA TANPA MU</div>
+                    <div class="song-artist-large">Naura Ayu</div>
+                    
+                    <div class="dedication">
+                        This song is dedicated to you, Asiyah. Aq letak lagu ni sebab aq rasa kau mungkin suka lagu ni
+                    </div>
+                    
+                    <div class="lyrics-preview">
+                        <h4>Lyrics Preview</h4>
+                        <p>Kota ini tak sama tanpa mu<br>
+                        Sepi menyelimuti jalan-jalan yang dulu kita lewati<br>
+                        Cahaya lampu kota tak lagi berbinar<br>
+                        Seperti hatiku yang merindukan kehadiranmu...</p>
+                        
+                        <p>Kita pernah tertawa di sudut-sudut kota ini<br>
+                        Berbagi cerita di bawah langit yang sama<br>
+                        Kini semua terasa berbeda<br>
+                        Karena kau tak lagi di sini bersamaku...</p>
+                    </div>
+                    
+                    <div class="arabic-calligraphy">
+                        بارك الله فيك
+                    </div>
+                    <p class="quran-translation">May Allah bless you</p>
+                </div>
+                
+                <button class="btn back-btn" id="backToStart">Kembali ke Awal</button>
+            </div>
+        </div>
+        
+        <div class="progress-indicator">
+            <div class="progress-dot active" data-screen="1"></div>
+            <div class="progress-dot" data-screen="2"></div>
+            <div class="progress-dot" data-screen="3"></div>
+            <div class="progress-dot" data-screen="4"></div>
+            <div class="progress-dot" data-screen="5"></div>
+            <div class="progress-dot" data-screen="6"></div>
+            <div class="progress-dot" data-screen="7"></div>
+            <div class="progress-dot" data-screen="8"></div>
+            <div class="progress-dot" data-screen="9"></div>
+        </div>
+    </div>
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const screens = document.querySelectorAll('.screen');
+            const progressDots = document.querySelectorAll('.progress-dot');
+            const passwordDisplay = document.getElementById('passwordDisplay');
+            const backToStartBtn = document.getElementById('backToStart');
+            const noBtn = document.getElementById('noBtn');
+            
+            // Music player elements
+            const playBtn = document.getElementById('playBtn');
+            const playIcon = document.getElementById('playIcon');
+            const prevBtn = document.getElementById('prevBtn');
+            const nextBtn = document.getElementById('nextBtn');
+            const songProgress = document.getElementById('songProgress');
+            const currentTimeEl = document.getElementById('currentTime');
+            const totalTimeEl = document.getElementById('totalTime');
+            
+            // Music player state
+            let isPlaying = false;
+            let currentTime = 105; // 1:45 in seconds
+            const totalTime = 270; // 4:30 in seconds
+            
+            // Correct password (changed to 2107)
+            const correctPassword = '2107';
+            let enteredPassword = '';
+            
+            // Set up password buttons
+            document.querySelectorAll('.num-btn:not(.blank)').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    const num = this.getAttribute('data-number');
+                    
+                    if (enteredPassword.length < 4) {
+                        enteredPassword += num;
+                        updatePasswordDisplay();
+                        
+                        // Check if password is complete
+                        if (enteredPassword.length === 4) {
+                            if (enteredPassword === correctPassword) {
+                                // Correct password - go directly to screen 2 (ASSALAMUALAIKUM ASIYAH)
+                                setTimeout(() => {
+                                    showScreen(2);
+                                }, 500);
+                            } else {
+                                // Wrong password
+                                setTimeout(() => {
+                                    enteredPassword = '';
+                                    updatePasswordDisplay();
+                                    alert('Try again! Hint: Our special date (2107)');
+                                }, 300);
+                            }
+                        }
+                    }
+                });
+            });
+            
+            // Update password display with dots or numbers
+            function updatePasswordDisplay() {
+                let displayText = '';
+                for (let i = 0; i < 4; i++) {
+                    if (i < enteredPassword.length) {
+                        displayText += enteredPassword[i];
+                    } else {
+                        displayText += '_';
+                    }
+                }
+                passwordDisplay.textContent = displayText;
+            }
+            
+            // Set up navigation buttons (except the special "no" button)
+            document.querySelectorAll('.btn:not(#noBtn)').forEach(btn => {
+                btn.addEventListener('click', function() {
+                    if (this.hasAttribute('data-next')) {
+                        const nextScreen = this.getAttribute('data-next');
+                        showScreen(nextScreen);
+                    }
+                });
+            });
+            
+            // Special handler for "no" button - goes to screen 4
+            noBtn.addEventListener('click', function() {
+                showScreen(4);
+            });
+            
+            // Set up back to start button
+            backToStartBtn.addEventListener('click', function() {
+                // Reset password
+                enteredPassword = '';
+                updatePasswordDisplay();
+                showScreen(1);
+            });
+            
+            // Show specific screen
+            function showScreen(screenNumber) {
+                // Hide all screens
+                screens.forEach(screen => {
+                    screen.classList.remove('active');
+                });
+                
+                // Show selected screen
+                const targetScreen = document.getElementById(`screen${screenNumber}`);
+                if (targetScreen) {
+                    targetScreen.classList.add('active');
+                    
+                    // Update progress dots
+                    progressDots.forEach(dot => {
+                        dot.classList.remove('active');
+                        if (parseInt(dot.getAttribute('data-screen')) <= screenNumber) {
+                            dot.classList.add('active');
+                        }
+                    });
+                    
+                    // Special animation for screen 2 (ASSALAMUALAIKUM ASIYAH)
+                    if (screenNumber == 2) {
+                        const greeting = document.querySelector('.islamic-greeting');
+                        const profileImg = document.querySelector('.profile-image');
+                        
+                        greeting.style.transform = 'scale(0.8)';
+                        greeting.style.opacity = '0';
+                        profileImg.style.transform = 'scale(0.5)';
+                        
+                        setTimeout(() => {
+                            greeting.style.transition = 'transform 0.5s, opacity 0.5s';
+                            greeting.style.transform = 'scale(1)';
+                            greeting.style.opacity = '1';
+                            
+                            profileImg.style.transition = 'transform 0.8s ease-out';
+                            profileImg.style.transform = 'scale(1)';
+                        }, 100);
+                    }
+                    
+                    // Special animation for screen 4 (Special "no" screen)
+                    if (screenNumber == 4) {
+                        const specialScreen = document.querySelector('.special-screen');
+                        specialScreen.style.transform = 'scale(0.8)';
+                        specialScreen.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            specialScreen.style.transition = 'transform 0.5s, opacity 0.5s';
+                            specialScreen.style.transform = 'scale(1)';
+                            specialScreen.style.opacity = '1';
+                        }, 100);
+                    }
+                    
+                    // Special animation for screen 8 (Congrats message)
+                    if (screenNumber == 8) {
+                        const congrats = document.querySelector('.congrats-message');
+                        congrats.style.transform = 'scale(0.8)';
+                        congrats.style.opacity = '0';
+                        
+                        setTimeout(() => {
+                            congrats.style.transition = 'transform 0.5s, opacity 0.5s';
+                            congrats.style.transform = 'scale(1)';
+                            congrats.style.opacity = '1';
+                        }, 100);
+                    }
+                    
+                    // Special animation for screen 9 (Music page)
+                    if (screenNumber == 9) {
+                        const musicPlayer = document.querySelector('.music-player');
+                        const albumArt = document.querySelector('.album-art');
+                        
+                        musicPlayer.style.transform = 'scale(0.8)';
+                        musicPlayer.style.opacity = '0';
+                        albumArt.style.transform = 'scale(0.5)';
+                        
+                        setTimeout(() => {
+                            musicPlayer.style.transition = 'transform 0.5s, opacity 0.5s';
+                            musicPlayer.style.transform = 'scale(1)';
+                            musicPlayer.style.opacity = '1';
+                            
+                            albumArt.style.transition = 'transform 0.8s ease-out';
+                            albumArt.style.transform = 'scale(1)';
+                        }, 100);
+                    }
+                }
+            }
+            
+            // Initial screen setup
+            showScreen(1);
+            
+            // Add some visual effects
+            document.querySelectorAll('.num-btn').forEach(btn => {
+                btn.addEventListener('mousedown', function() {
+                    this.style.transform = 'scale(0.95)';
+                });
+                
+                btn.addEventListener('mouseup', function() {
+                    this.style.transform = 'scale(1)';
+                });
+                
+                btn.addEventListener('mouseleave', function() {
+                    this.style.transform = 'scale(1)';
+                });
+            });
+            
+            // Add floating animation to mosque icons
+            const mosqueIcons = document.querySelectorAll('.mosque-icon');
+            mosqueIcons.forEach((icon, index) => {
+                icon.style.animation = `float ${3 + index}s ease-in-out infinite`;
+            });
+        });
+    </script>
+</body>
+</html>
